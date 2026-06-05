@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Adrita's Kitchen | Homemade Goodness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #f7ecd5;
+      --cream-soft: #fbf3df;
+      --cream-card: #fffaee;
+      --sage: #6f8a4a;
+      --sage-deep: #4d6a36;
+      --terracotta: #c2562a;
+      --terracotta-deep: #8b3a18;
+      --rust: #a14528;
+      --ink: #3a2a1e;
+      --ink-soft: #6b5544;
+      --gold: #d9a441;
+      --line: #e7d6ad;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cream);
+      background-image: radial-gradient(ellipse at 15% 0%, rgba(111,138,74,0.1) 0%, transparent 38%),
+                        radial-gradient(ellipse at 85% 100%, rgba(194,86,42,0.08) 0%, transparent 40%);
+      color: var(--ink);
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--cream-soft);
+      border-radius: 32px;
+      box-shadow: 0 20px 40px -15px rgba(74,46,20,0.2), 0 0 0 1px rgba(231,214,173,0.5);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* botanical corner accents */
+    .container::before,
+    .container::after {
+      content: "";
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .container::before {
+      top: -10px; left: -10px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%236f8a4a' stroke-width='2'%3E%3Cpath d='M10 10 Q60 40 90 100'/%3E%3C/g%3E%3Cg fill='%237ea155'%3E%3Cellipse cx='30' cy='30' rx='10' ry='5' transform='rotate(-30 30 30)'/%3E%3Cellipse cx='50' cy='55' rx='12' ry='6' transform='rotate(-25 50 55)'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .container::after {
+      bottom: -10px; right: -10px;
+      transform: scaleX(-1) scaleY(-1);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%236f8a4a' stroke-width='2'%3E%3Cpath d='M10 10 Q60 40 90 100'/%3E%3C/g%3E%3Cg fill='%237ea155'%3E%3Cellipse cx='30' cy='30' rx='10' ry='5' transform='rotate(-30 30 30)'/%3E%3Cellipse cx='50' cy='55' rx='12' ry='6' transform='rotate(-25 50 55)'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .inner {
+      padding: 2rem 1.5rem 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Brand */
+    .brand {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .brand h1 {
+      font-family: 'Allura', cursive;
+      font-size: 4rem;
+      color: var(--terracotta-deep);
+      margin-bottom: 0.25rem;
+      font-weight: normal;
+    }
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--sage-deep);
+      letter-spacing: 1px;
+      border-bottom: 1px dashed var(--line);
+      display: inline-block;
+      padding-bottom: 6px;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Special card (food image + details) - image is clickable */
+    .special-card {
+      background: var(--cream-card);
+      border-radius: 28px;
+      margin: 1.8rem 0 1.2rem;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px -14px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .special-card:hover {
+      transform: scale(0.99);
+    }
+    .special-card img {
+      width: 100%;
+      display: block;
+      border-bottom: 2px solid var(--line);
+      pointer-events: none;
+    }
+    .card-content {
+      padding: 1.4rem 1.2rem 1.2rem;
+      text-align: center;
+      pointer-events: none;
+    }
+    .card-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--terracotta);
+      margin-bottom: 0.3rem;
+    }
+    .dish-items {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 0.6rem 0;
+    }
+    .dish-items span {
+      background: #fef0d8;
+      padding: 5px 15px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--rust);
+    }
+    .price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--sage-deep);
+      margin: 0.3rem 0;
+    }
+    .old-price {
+      text-decoration: line-through;
+      font-size: 1rem;
+      color: #a07a5c;
+      margin-right: 8px;
+    }
+    .offer-tag {
+      display: inline-block;
+      background: var(--gold);
+      padding: 4px 12px;
+      border-radius: 60px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+    .meta {
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    /* Instagram button */
+    .insta-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 14px 20px;
+      border-radius: 60px;
+      margin: 1rem 0 1.8rem;
+      transition: 0.2s;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+    }
+    .insta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Feedback form – Google Form embed */
+    .feedback-section {
+      margin-top: 1rem;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+    .section-title h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--terracotta-deep);
+    }
+    .section-title p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--ink-soft);
+    }
+    .custom-form {
+      background: var(--cream-card);
+      padding: 0;          /* remove padding for iframe */
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .custom-form iframe {
+      display: block;
+      width: 100%;
+      height: 850px;        /* adjust based on your form length */
+      border: 0;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .footer .heart { color: var(--terracotta); }
+    .footer a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px dotted var(--line);
+    }
+    .footer a:hover {
+      border-bottom: 1px solid var(--terracotta);
+    }
+
+    @media (max-width: 550px) {
+      .inner { padding: 1.5rem 1rem; }
+      .brand h1 { font-size: 3rem; }
+      .tagline { font-size: 1rem; }
+      .card-content h3 { font-size: 1.4rem; }
+      .custom-form iframe { height: 750px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="inner">
+    <!-- Title + tagline -->
+    <div class="brand">
+      <h1>Kitchen by Adrita</h1>
+      <div class="tagline">✨ Homemade goodness, every time ✨</div>
+    </div>
+
+    <!-- Food image + details - CLICKABLE to open Instagram DM with selected dish -->
+    <div class="special-card" id="foodImageCard">
+      <!-- Replace with your actual image path -->
+      <img src="assets/weekend-special.jpg" alt="Bashonti Polao and Chicken Kosha">
+      <div class="card-content">
+        <h3>Bashonti Polao + Chicken Kosha</h3>
+        <div class="dish-items">
+          <span>🍚 Bashonti Polao</span>
+          <span>🍗 Chicken Kosha</span>
+        </div>
+        <div class="price">
+          <span class="old-price">₹500</span> ₹250
+          <span class="offer-tag">50% OFF</span>
+        </div>
+        <div class="meta">📍 Whitefield, Bengaluru &nbsp;|&nbsp; 📅 6th–7th June</div>
+        <div class="meta">✨ First order special – limited batches ✨</div>
+      </div>
+    </div>
+
+    <!-- Instagram button (direct profile) -->
+    <a href="https://www.instagram.com/kitchenbyadrita" class="insta-btn" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+      </svg>
+      Order on Instagram
+    </a>
+
+    <!-- Feedback form – EMBEDDED GOOGLE FORM -->
+    <div class="feedback-section">
+      <div class="section-title">
+        <h3>📝 Share your experience</h3>
+        <p>Your feedback helps Adrita cook better</p>
+      </div>
+      <div class="custom-form">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScHbaudyo41jihm7P7gYskqyP8uRazE-HiTHhoY5n4yf3gc8w/viewform?embedded=true" 
+                width="100%" 
+                height="850" 
+                frameborder="0" 
+                marginheight="0" 
+                marginwidth="0">
+          Loading…
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Footer with clickable Carevo link -->
+    <div class="footer">
+      <span class="heart">🧡</span> Powered by 
+      <a href="https://carevo.co.in" target="_blank" rel="noopener noreferrer">Carevo</a>
+      – AI for local kitchens &nbsp;|&nbsp; 🌱 support homegrown dreams
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---- IMAGE CLICK: redirect to Instagram DM with pre-filled message ----
+  const foodCard = document.getElementById('foodImageCard');
+  // Optional: we could still use a dish selector, but we removed the dropdown. 
+  // We'll just send a generic message or get the dish from the card text.
+  foodCard.addEventListener('click', (e) => {
+    const message = "I would like to order the weekend special – Bashonti Polao + Chicken Kosha (₹250)";
+    const instaDmUrl = `https://www.instagram.com/direct/new/?text=${encodeURIComponent(message)}`;
+    window.open(instaDmUrl, '_blank');
+  });
+</script>
+</body>
+</html>
